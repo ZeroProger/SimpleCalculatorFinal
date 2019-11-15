@@ -57,31 +57,67 @@ public class CalculatorLogic {
                     }
                     break;
                 case R.id.button_one:
-                    input.append("1");
+                    if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
+                        input.setCharAt(0, '1');
+                    } else {
+                        input.append('1');
+                    }
                     break;
                 case R.id.button_two:
-                    input.append("2");
+                    if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
+                        input.setCharAt(0, '2');
+                    } else {
+                        input.append('2');
+                    }
                     break;
                 case R.id.button_three:
-                    input.append("3");
+                    if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
+                        input.setCharAt(0, '3');
+                    } else {
+                        input.append('3');
+                    }
                     break;
                 case R.id.button_four:
-                    input.append("4");
+                    if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
+                        input.setCharAt(0, '4');
+                    } else {
+                        input.append('4');
+                    }
                     break;
                 case R.id.button_five:
-                    input.append("5");
+                    if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
+                        input.setCharAt(0, '5');
+                    } else {
+                        input.append('5');
+                    }
                     break;
                 case R.id.button_six:
-                    input.append("6");
+                    if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
+                        input.setCharAt(0, '6');
+                    } else {
+                        input.append('6');
+                    }
                     break;
                 case R.id.button_seven:
-                    input.append("7");
+                    if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
+                        input.setCharAt(0, '7');
+                    } else {
+                        input.append('7');
+                    }
                     break;
                 case R.id.button_eight:
-                    input.append("8");
+                    if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
+                        input.setCharAt(0, '8');
+                    } else {
+                        input.append('8');
+                    }
                     break;
                 case R.id.button_nine:
-                    input.append("9");
+                    if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
+                        input.setCharAt(0, '9');
+                    } else {
+                        input.append('9');
+                    }
                     break;
             }
 
@@ -185,7 +221,7 @@ public class CalculatorLogic {
         else return " ";
     }
 
-    public void scanInput(StringBuilder input) {
+    private void scanInput(StringBuilder input) {
 
         scanVar = input.toString();
 
@@ -195,7 +231,7 @@ public class CalculatorLogic {
 
     }
 
-    public void scanInputToInt(StringBuilder input) {
+    private void scanInputToInt(StringBuilder input) {
 
         scanVar = input.toString();
 
@@ -212,7 +248,7 @@ public class CalculatorLogic {
 
     }
 
-    public void roundInput(StringBuilder input) {
+    private void roundInput(StringBuilder input) {
 
         scanVar = input.toString();
 
