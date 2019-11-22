@@ -207,7 +207,6 @@ public class CalculatorLogic {
 
         }
 
-
         Log.d(LOG_TAG, "Текущее состояние: " + status.toString());
 
     }
