@@ -52,7 +52,7 @@ public class CalculatorLogic {
 
             switch (numButtonId) {
                 case R.id.button_zero:
-                    if((input.length() != 0 || firstArg != 0) && !input.toString().equals("0") && !(input.length() == 9 && input.charAt(8) == '0')) {
+                    if(firstArg != 0 && !input.toString().equals("0") && !(input.length() == 9 && input.charAt(8) == '0')) {
                         input.append("0");
                     }
                     break;
