@@ -8,6 +8,8 @@ public class CalculatorLogic {
 
     private static final String LOG_TAG = "CalcLogic";
 
+    private BigDecimal divisor1 = new BigDecimal(1);
+
     private StringBuilder input = new StringBuilder();
 
     private double firstArg;
@@ -52,7 +54,7 @@ public class CalculatorLogic {
 
             switch (numButtonId) {
                 case R.id.button_zero:
-                    if((input.length() != 0 || firstArg != 0) && !input.toString().equals("0") && !(input.length() == 9 && input.charAt(8) == '0')) {
+                    if(!input.toString().equals("0") && !(input.length() == 9 && input.charAt(8) == '0')) {
                         input.append("0");
                     }
                     break;
@@ -148,17 +150,17 @@ public class CalculatorLogic {
 
             switch (actualAction) {
                 case R.id.button_plus:
-                    input.append(firstArgBIG.add(secondArgBIG).setScale(2, BigDecimal.ROUND_CEILING));
+                    input.append(firstArgBIG.add(secondArgBIG).setScale(2, BigDecimal.ROUND_HALF_UP));
                     Log.d(LOG_TAG, input.toString());
                     scanInputToInt(input);
                     break;
                 case R.id.button_minus:
-                    input.append(firstArgBIG.subtract(secondArgBIG).setScale(2, BigDecimal.ROUND_CEILING));
+                    input.append(firstArgBIG.subtract(secondArgBIG).setScale(2, BigDecimal.ROUND_HALF_UP));
                     Log.d(LOG_TAG, input.toString());
                     scanInputToInt(input);
                     break;
                 case R.id.button_multiply:
-                    input.append(firstArgBIG.multiply(secondArgBIG).setScale(2, BigDecimal.ROUND_CEILING));
+                    input.append(firstArgBIG.multiply(secondArgBIG).setScale(2, BigDecimal.ROUND_HALF_UP));
                     Log.d(LOG_TAG, input.toString());
                     scanInputToInt(input);
                     break;
@@ -188,6 +190,7 @@ public class CalculatorLogic {
         if (input.length() > 0 && status == Status.showResult) {
             firstArg = Double.parseDouble(input.toString());
             firstArgBIG = new BigDecimal(firstArg);
+            firstArgBIG = firstArgBIG.divide(divisor1, 2, BigDecimal.ROUND_HALF_UP);
             status = Status.firstArgInput;
             actualAction = actionButtonId;
             Log.d(LOG_TAG, "Результат и первое число для счёта: " + firstArgBIG.toString());
@@ -203,6 +206,7 @@ public class CalculatorLogic {
             Log.d(LOG_TAG, "Обнуление всех полей.");
 
         }
+
 
         Log.d(LOG_TAG, "Текущее состояние: " + status.toString());
 
