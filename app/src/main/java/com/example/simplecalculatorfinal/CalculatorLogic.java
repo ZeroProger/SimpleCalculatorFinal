@@ -169,6 +169,8 @@ public class CalculatorLogic {
                     scanInputToInt(input);
                     break;
             }
+            
+            //firstArg = Double.parseDouble(input.toString);
 
         }
 
