@@ -56,11 +56,17 @@ public class CalculatorLogic {
                 case R.id.button_zero:
                     if(!input.toString().equals("0") && !(input.length() == 9 && input.charAt(8) == '0')) {
                         input.append("0");
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('1');
                     }
                     break;
                 case R.id.button_one:
                     if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
                         input.setCharAt(0, '1');
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('1');
                     } else {
                         input.append('1');
                     }
@@ -68,6 +74,9 @@ public class CalculatorLogic {
                 case R.id.button_two:
                     if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
                         input.setCharAt(0, '2');
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('2');
                     } else {
                         input.append('2');
                     }
@@ -75,6 +84,9 @@ public class CalculatorLogic {
                 case R.id.button_three:
                     if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
                         input.setCharAt(0, '3');
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('3');
                     } else {
                         input.append('3');
                     }
@@ -82,6 +94,9 @@ public class CalculatorLogic {
                 case R.id.button_four:
                     if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
                         input.setCharAt(0, '4');
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('4');
                     } else {
                         input.append('4');
                     }
@@ -89,6 +104,9 @@ public class CalculatorLogic {
                 case R.id.button_five:
                     if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
                         input.setCharAt(0, '5');
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('5');
                     } else {
                         input.append('5');
                     }
@@ -96,6 +114,9 @@ public class CalculatorLogic {
                 case R.id.button_six:
                     if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
                         input.setCharAt(0, '6');
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('6');
                     } else {
                         input.append('6');
                     }
@@ -103,6 +124,9 @@ public class CalculatorLogic {
                 case R.id.button_seven:
                     if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
                         input.setCharAt(0, '7');
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('7');
                     } else {
                         input.append('7');
                     }
@@ -110,6 +134,9 @@ public class CalculatorLogic {
                 case R.id.button_eight:
                     if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
                         input.setCharAt(0, '8');
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('8');
                     } else {
                         input.append('8');
                     }
@@ -117,6 +144,9 @@ public class CalculatorLogic {
                 case R.id.button_nine:
                     if(input.length() > 0 && input.length() < 2 && input.charAt(0) == '0') {
                         input.setCharAt(0, '9');
+                    } else if (input.toString().equals("Ошибка")) {
+                        input.setLength(0);
+                        input.append('9');
                     } else {
                         input.append('9');
                     }
@@ -139,14 +169,13 @@ public class CalculatorLogic {
         Log.d(LOG_TAG, "first: " + Double.toString(firstArg));
         Log.d(LOG_TAG, "second: " + Double.toString(secondArg));
 
-        if (actionButtonId == R.id.button_equals && status == Status.secondArgInput && input.length() > 0) {
+        if (actionButtonId == R.id.button_equals && status == Status.secondArgInput && input.length() > 0 && !input.toString().equals("Ошибка")) {
 
             secondArg = Double.parseDouble(input.toString());
             secondArgBIG = new BigDecimal(secondArg);
             status = Status.showResult;
             input.setLength(0);
             Log.d(LOG_TAG, "Второе число для счёта: " + secondArgBIG.toString());
-
 
             switch (actualAction) {
                 case R.id.button_plus:
@@ -165,21 +194,27 @@ public class CalculatorLogic {
                     scanInputToInt(input);
                     break;
                 case R.id.button_divide:
-                    Log.d(LOG_TAG, Double.toString(firstArg / secondArg));
-                    input.append(firstArgBIG.setScale(2, BigDecimal.ROUND_HALF_UP).divide(secondArgBIG, BigDecimal.ROUND_HALF_UP));
-                    Log.d(LOG_TAG, input.toString());
-                    scanInputToInt(input);
-                    break;
+                    if (secondArgBIG.toString().equals("0")) {
+                        input.setLength(0);
+                        input.append("Ошибка");
+                        break;
+                    } else {
+                        Log.d(LOG_TAG, Double.toString(firstArg / secondArg));
+                        input.append(firstArgBIG.setScale(2, BigDecimal.ROUND_HALF_UP).divide(secondArgBIG, BigDecimal.ROUND_HALF_UP));
+                        Log.d(LOG_TAG, input.toString());
+                        scanInputToInt(input);
+                        break;
+                    }
             }
 
         }
 
-        if (actionButtonId == R.id.button_dot && !dotPressed && input.length() != 0 && status != Status.selectAction) {
+        if (actionButtonId == R.id.button_dot && !dotPressed && input.length() != 0 && status != Status.selectAction && !input.toString().equals("Ошибка")) {
             input.append(".");
             dotPressed = true;
         }
 
-        if (input.length() > 0 && status == Status.firstArgInput && actionButtonId != R.id.button_dot) {
+        if (input.length() > 0 && status == Status.firstArgInput && actionButtonId != R.id.button_dot && !input.toString().equals("Ошибка")) {
             firstArg = Double.parseDouble(input.toString());
             firstArgBIG = new BigDecimal(firstArg);
             status = Status.selectAction;
@@ -187,7 +222,7 @@ public class CalculatorLogic {
             Log.d(LOG_TAG, "Первое число для счёта: " + firstArgBIG.toString());
         }
 
-        if (input.length() > 0 && status == Status.showResult) {
+        if (input.length() > 0 && status == Status.showResult && !input.toString().equals("Ошибка")) {
             firstArg = Double.parseDouble(input.toString());
             firstArgBIG = new BigDecimal(firstArg);
             firstArgBIG = firstArgBIG.divide(divisor1, 2, BigDecimal.ROUND_HALF_UP);
