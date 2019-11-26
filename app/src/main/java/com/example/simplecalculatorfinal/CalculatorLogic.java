@@ -58,7 +58,7 @@ public class CalculatorLogic {
                         input.append("0");
                     } else if (input.toString().equals("Ошибка")) {
                         input.setLength(0);
-                        input.append('1');
+                        input.append('0');
                     }
                     break;
                 case R.id.button_one:
